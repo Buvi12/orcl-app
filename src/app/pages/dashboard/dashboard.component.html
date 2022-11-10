@@ -1,0 +1,236 @@
+<!-- <div class="d-flex flex-column flex-row-fluid"> -->
+  <!--begin::Toolbar end-->
+  <!-- <div class="d-flex align-items-center justify-content-around w-100 overflow-auto"> -->
+    <!--begin::Search-->
+    <!-- <div class="position-relative my-1">
+      <span [inlineSVG]="'./assets/media/icons/duotune/general/gen021.svg'"
+        class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ps-10"></span>
+      <input type="text" class="form-control form-control-sm form-control-solid w-150px ps-10" name="Search Team"
+        value="" placeholder="Search Roles" />
+    </div> -->
+    <!--end::Search-->
+
+    <!-- <div class="position-relative my-1">
+    <input type="text" class="form-control form-control-sm form-control-solid w-150px ps-10" name="Search Team" value=""
+      placeholder="Search Team" />
+    <span [inlineSVG]="'./assets/media/icons/duotune/general/gen021.svg'"
+      class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ps-10"></span>
+  </div> -->
+    <!--end::Search-->
+    <!-- <div class="position-relative my-1">
+    <span [inlineSVG]="'./assets/media/icons/duotune/general/gen021.svg'"
+      class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ps-10"></span>
+    <input type="text" class="form-control form-control-sm form-control-solid w-150px ps-10" name="Search Team" value=""
+      placeholder="Search Team" />
+  </div> -->
+
+  <!-- </div> -->
+  <div *ngIf="users.length==0" class="card mb-5 mb-xl-8 d-flex min-h-500px w-100 justify-content-center align-items-center text-dark fw-bolder">
+    Welcome to the Admin Dashboard!
+  </div>
+  <div class="card mb-5 mb-xl-8" *ngIf="users.length!=0">
+    <div class="card-header border-0 pt-5 d-flex">
+      <div>
+        <h3 class="card-title align-items-start flex-column">
+          <span class="card-label fw-bolder fs-3 mb-1">User</span>
+          <span class="text-muted mt-1 fw-bold fs-7">Search Results</span>
+        </h3>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          User Type
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" [routerLink]="">Active</a></li>
+          <li><a class="dropdown-item" [routerLink]="">Not Active</a></li>
+        </ul>
+      </div>
+      <!-- <div class="d-flex align-items-center justify-content-around w-100 overflow-auto">
+        <div class="position-relative my-1">
+          <span [inlineSVG]="'./assets/media/icons/duotune/general/gen021.svg'"
+            class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ps-10"></span>
+          <input type="text" class="form-control form-control-sm form-control-solid w-150px ps-10" name="Search Team"
+            value="" placeholder="Search Roles" />
+        </div>
+      </div> -->
+      <!-- <div class="card-toolbar">
+      <a href="#" class="btn btn-sm btn-light-primary">
+        <span
+          [inlineSVG]="'./assets/media/icons/duotune/arrows/arr075.svg'"
+          class="svg-icon svg-icon-3"
+        ></span>
+        New Member
+      </a>
+    </div> -->
+    </div>
+    <!-- end::Header -->
+    <!-- begin::Body -->
+    <div class="table-wrapper-scroll-y my-custom-scrollbar card-body py-3">
+      <!-- begin::Table container -->
+      <div class="table-responsive">
+        <!-- begin::Table -->
+        <table class="table align-middle gs-0 gy-4 table-row-bordered table-row-gray-300">
+          <!-- begin::Table head -->
+          <thead>
+            <tr class="fw-bolder text-muted border-bottom border-gray-400">
+              <th class="ps-4 min-w-325px rounded-start">Display Name</th>
+              <th class="min-w-125px">User</th>
+              <!-- <th class="min-w-125px">Deposit</th>
+            <th class="min-w-200px">Agent</th>
+            <th class="min-w-150px">Status</th> -->
+            </tr>
+          </thead>
+          <!-- end::Table head -->
+          <!-- begin::Table body -->
+          <tbody>
+            <tr  *ngFor="let user of users;let i=index" (click)="ClickedRow(i)" [class.active]="i == HighlightRow">
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="symbol symbol-50px me-5">
+                  </div>
+                  <div class="d-flex justify-content-start flex-column">
+                    <a [routerLink]="" (click)="loadData(user)"
+                      class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                      {{user.displayName}}
+                    </a>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="text-dark fw-bolder d-block mb-1 fs-6">
+                  User Name : <strong class="text-primary">{{user.userName}}</strong>
+                </span>
+                <span class="text-muted fw-bold text-muted d-block fs-6">
+                  <span class="text-dark fw-bolder">Email: </span>
+                </span>
+              </td>
+            </tr>
+
+          </tbody>
+          <!-- end::Table body -->
+        </table>
+        <!-- end::Table -->
+      </div>
+      <!-- end::Table container -->
+    </div>
+    <!-- begin::Body -->
+
+  </div>
+  <div class="card mb-5 mb-xl-8" *ngIf="roles.length!=0">
+    <div class="d-flex justify-content-end h-60px p-3">
+      <button class="btn btn-primary p-2 m-1 w-80px">Save</button>
+      <button class="btn btn-danger p-2 m-1 w-80px">Cancel</button>
+    </div>
+    <div class="table-wrapper-scroll-y my-custom-scrollbar card-body py-3">
+      <div class="table-responsive text-wrap">
+        <table class="table align-middle gs-0 gy-4 w-100 table-row-bordered table-row-gray-300">
+          <thead>
+            <tr class="fw-bolder text-muted border-bottom border-gray-400">
+              <th class="ps-4 min-w-125px rounded-start">Role Name</th>
+              <th class="ps-4 min-w-125px">Role Code</th>
+              <th class="ps-4 min-w-110px">Role Name</th>
+              <th class="ps-4 min-w-70px">Available</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let role of roles">
+              <td class="ps-4 min-w-125px rounded-start">{{role.displayName}} </td>
+              <td class="ps-4 min-w-125px rounded-start">{{role.id}}</td>
+              <td class="ps-4 min-w-110px rounded-start">{{role.name}} </td>
+              <td class="ps-4 min-w-70px rounded-start">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" *ngIf="role.available; else notcheck" checked>
+                <ng-template #notcheck>
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                </ng-template>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!--begin::Row-->
+  <!-- <div class="row g-5 g-xl-10 mb-5 mb-xl-10"> -->
+  <!--begin::Col-->
+  <!-- <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
+    <app-cards-widget20 cssClass="h-md-50 mb-5 mb-xl-10" description="Active Projects" color="#F1416C"
+      img="./assets/media/patterns/vector-1.png"></app-cards-widget20>
+
+    <app-cards-widget7 cssClass="h-md-50 mb-5 mb-xl-10" [icon]="false" [stats]="357" description="Professionals"
+      labelColor="dark" textColor="gray-300"></app-cards-widget7>
+  </div> -->
+  <!--end::Col-->
+
+  <!--begin::Col-->
+  <!-- <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
+    <app-cards-widget17 cssClass="h-md-50 mb-5 mb-xl-10"></app-cards-widget17>
+    <app-lists-widget26 class="h-lg-50"></app-lists-widget26>
+  </div> -->
+  <!--end::Col-->
+
+
+  <!--begin::Col-->
+  <!-- <app-engage-widget10 class="col-xxl-6" cssClass="h-md-100"></app-engage-widget10> -->
+  <!--end::Col-->
+  <!-- </div> -->
+  <!--end::Row-->
+
+  <!--begin::Row-->
+  <!-- <div class="row gx-5 gx-xl-10"> -->
+  <!--begin::Col-->
+  <!-- <div class="col-xxl-6 mb-5 mb-xl-10">
+    <app-new-charts-widget8 cssClass="h-xl-100" chartHeight="275px" [chartHeightNumber]="275"></app-new-charts-widget8>
+  </div> -->
+  <!--end::Col-->
+
+  <!--begin::Col-->
+  <!-- <div class="col-xxl-6 mb-5 mb-xl-10">
+    <app-cards-widget18 cssClass="h-xl-100" image="./assets/media/stock/600x600/img-65.jpg"></app-cards-widget18>
+  </div> -->
+  <!--end::Col-->
+  <!-- </div> -->
+  <!--end::Row-->
+
+  <!-- begin::Row -->
+  <!-- <div class="row gy-5 gx-xl-8">
+  <div class="col-xxl-4">
+    <app-lists-widget3 class="card card-xxl-stretch mb-xl-3"></app-lists-widget3>
+  </div>
+  <div class="col-xl-8">
+    <app-tables-widget10 class="card card-xxl-stretch mb-5 mb-xl-8"></app-tables-widget10>
+  </div>
+</div> -->
+  <!-- end::Row -->
+
+  <!-- begin::Row -->
+  <!-- <div class="row gy-5 g-xl-8">
+  <div class="col-xl-4">
+    <app-lists-widget2 class="card card-xl-stretch mb-xl-8"></app-lists-widget2>
+  </div>
+  <div class="col-xl-4">
+    <app-lists-widget6 class="card card-xl-stretch mb-xl-8"></app-lists-widget6>
+  </div>
+  <div class="col-xl-4">
+    <app-lists-widget4 class="card card-xl-stretch mb-5 mb-xl-8"></app-lists-widget4>
+  </div>
+</div> -->
+  <!-- end::Row -->
+
+  <!-- <div class="row g-5 gx-xxl-8">
+  <div class="col-xxl-4">
+    <app-mixed-widget8 class="card card-xxl-stretch mb-xl-3" chartColor="success" chartHeight="150px">
+    </app-mixed-widget8>
+  </div>
+  <div class="col-xxl-8">
+    <app-tables-widget5 class="card card-xxl-stretch mb-5 mb-xxl-8"></app-tables-widget5>
+  </div>
+</div> -->
+
+  <!-- begin:: Modal example -->
+  <!-- <app-modal #modal [modalConfig]="modalConfig">
+  Modal body html
+</app-modal>
+<button class="btn btn-primary" (click)="openModal()">Open modal</button> -->
+  <!-- Note: Don't forget import ModalsModule (from _metronic/partials) into your module -->
+  <!-- end:: Modal example -->
